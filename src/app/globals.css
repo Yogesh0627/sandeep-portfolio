@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  THEME TOKENS
+  ------------
+  Each palette defines a FULL set of tokens for both light and dark, so the
+  entire surface (backgrounds, cards, borders, text) is tinted to match — not
+  just the accent. Selectors:
+    [data-palette="x"]        -> light theme for palette x
+    [data-palette="x"].dark   -> dark theme for palette x
+  :root falls back to Navy (light) when no palette attribute is present.
+  All values are HSL channels so Tailwind can apply opacity: hsl(var(--x) / .5).
+*/
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', ui-sans-serif, system-ui;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --radius: 0.75rem;
+  }
+
+  /*
+    Token contract (kept consistent across ALL palettes so components behave
+    identically in every combination):
+      --primary            deep, branded surface (panels, buttons, tabs). LIGHT:
+                           very dark; DARK: ~30% L. Always pairs with a LIGHT
+                           --primary-foreground.
+      --accent             vivid highlight. Tuned so text-accent stays readable
+                           on the page background (card/muted).
+      --accent-foreground  text placed ON an accent fill (buttons/dots).
+      --on-primary-accent  accent variant that stays readable when placed on a
+                           --primary surface (used by eyebrows over panels).
+  */
+
+  /* ============ NAVY & GOLD ============ */
+  :root,
+  [data-palette='navy'] {
+    --background: 214 42% 97%;
+    --foreground: 213 45% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 213 45% 12%;
+    --muted: 214 34% 92%;
+    --muted-foreground: 214 20% 36%;
+    --border: 214 30% 86%;
+    --input: 214 30% 84%;
+    --primary: 213 74% 16%;
+    --primary-foreground: 210 40% 98%;
+    --accent: 40 68% 42%;
+    --accent-foreground: 213 74% 13%;
+    --on-primary-accent: 41 75% 62%;
+    --ring: 40 68% 42%;
+  }
+  [data-palette='navy'].dark {
+    --background: 214 44% 8%;
+    --foreground: 210 38% 95%;
+    --card: 214 40% 12%;
+    --card-foreground: 210 38% 95%;
+    --muted: 214 34% 17%;
+    --muted-foreground: 214 22% 70%;
+    --border: 214 32% 22%;
+    --input: 214 32% 24%;
+    --primary: 213 58% 30%;
+    --primary-foreground: 210 40% 98%;
+    --accent: 41 72% 58%;
+    --accent-foreground: 214 44% 9%;
+    --on-primary-accent: 41 75% 64%;
+    --ring: 41 72% 58%;
+  }
+
+  /* ============ EMERALD ============ */
+  [data-palette='emerald'] {
+    --background: 150 34% 97%;
+    --foreground: 155 42% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 155 42% 11%;
+    --muted: 150 28% 91%;
+    --muted-foreground: 155 14% 34%;
+    --border: 150 24% 84%;
+    --input: 150 24% 82%;
+    --primary: 156 66% 16%;
+    --primary-foreground: 150 40% 98%;
+    --accent: 158 68% 33%;
+    --accent-foreground: 0 0% 100%;
+    --on-primary-accent: 152 60% 68%;
+    --ring: 158 68% 33%;
+  }
+  [data-palette='emerald'].dark {
+    --background: 160 40% 6%;
+    --foreground: 150 28% 94%;
+    --card: 159 34% 10%;
+    --card-foreground: 150 28% 94%;
+    --muted: 158 28% 15%;
+    --muted-foreground: 150 18% 68%;
+    --border: 158 26% 20%;
+    --input: 158 26% 22%;
+    --primary: 158 48% 28%;
+    --primary-foreground: 150 40% 97%;
+    --accent: 158 62% 48%;
+    --accent-foreground: 160 40% 8%;
+    --on-primary-accent: 152 60% 70%;
+    --ring: 158 62% 48%;
+  }
+
+  /* ============ CHARCOAL & ELECTRIC BLUE ============ */
+  [data-palette='charcoal'] {
+    --background: 220 28% 97%;
+    --foreground: 222 47% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 12%;
+    --muted: 220 24% 92%;
+    --muted-foreground: 220 13% 36%;
+    --border: 220 20% 86%;
+    --input: 220 20% 84%;
+    --primary: 221 48% 15%;
+    --primary-foreground: 210 40% 98%;
+    --accent: 221 78% 48%;
+    --accent-foreground: 0 0% 100%;
+    --on-primary-accent: 213 92% 74%;
+    --ring: 221 78% 48%;
+  }
+  [data-palette='charcoal'].dark {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 96%;
+    --card: 222 42% 11%;
+    --card-foreground: 210 40% 96%;
+    --muted: 221 32% 16%;
+    --muted-foreground: 215 20% 70%;
+    --border: 221 30% 21%;
+    --input: 221 30% 23%;
+    --primary: 221 50% 32%;
+    --primary-foreground: 210 40% 98%;
+    --accent: 213 92% 62%;
+    --accent-foreground: 222 47% 8%;
+    --on-primary-accent: 213 92% 74%;
+    --ring: 213 92% 62%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: hsl(var(--accent) / 0.25);
+  }
+}
+
+@layer components {
+  .container-tight {
+    @apply container max-w-5xl;
+  }
+  .section {
+    @apply scroll-mt-20 py-20 md:py-28;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+  }
+  .heading {
+    @apply font-serif text-3xl font-semibold tracking-tight text-foreground md:text-4xl;
+  }
+  .grid-bg {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  /* Fade the marquee in/out at both edges */
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+}
+
+/* ---- Page transition animation (next-view-transitions) ---- */
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+::view-transition-old(root) {
+  animation: vt-fade-out 0.28s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+::view-transition-new(root) {
+  animation: vt-fade-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Reduced motion: disable animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  /* Keep testimonials readable: stop the scroll, allow manual swipe instead */
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .marquee-mask {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
