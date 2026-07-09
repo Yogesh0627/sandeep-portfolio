@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { applyFavicon } from '@/lib/favicon'
 
 type Mode = 'light' | 'dark'
 export type Palette = 'navy' | 'emerald' | 'charcoal'
@@ -49,10 +50,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   React.useEffect(() => {
     if (!paletteReady.current) {
       paletteReady.current = true
+      // Restored palette from localStorage differs from the default? The
+      // hydrate effect will bump `palette` and re-run this. If it matches the
+      // default (navy), the static /favicon.svg is already correct.
       return
     }
     document.documentElement.setAttribute('data-palette', palette)
     localStorage.setItem(PALETTE_KEY, palette)
+    applyFavicon(palette)
   }, [palette])
 
   const value = React.useMemo<ThemeState>(

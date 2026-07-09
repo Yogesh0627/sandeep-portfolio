@@ -35,6 +35,18 @@ export const metadata: Metadata = {
   // inheriting "/" and looking like a duplicate of the homepage).
   alternates: { canonical: '/' },
   manifest: '/manifest.webmanifest',
+  // Icons live in /public and are wired explicitly (Next's app/icon.* file
+  // convention can't be used here — see scripts/generate-icons.mjs).
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    shortcut: ['/favicon.ico'],
+  },
   // Note: openGraph/twitter title & description are intentionally omitted here
   // so Next auto-derives them from each page's own title/description.
   openGraph: {

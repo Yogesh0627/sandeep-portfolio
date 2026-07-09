@@ -70,6 +70,7 @@ npm start
 | `npm run lint`         | Run Next.js / ESLint                                     |
 | `npm run format`       | Format all files with Prettier (+ sort Tailwind classes) |
 | `npm run format:check` | Verify formatting without writing (use in CI)            |
+| `npm run icons`        | Regenerate the favicon/PWA icon set from `favicon.svg`   |
 
 ---
 
@@ -275,7 +276,33 @@ The form logic lives in `src/components/sections/contact.tsx`.
 > Before deploying, set `site.url` in `src/lib/site.ts` so canonicals, OG URLs,
 > and the sitemap resolve to the real domain.
 
-**Not yet added (optional):** an Open Graph share image and a custom favicon.
+**Not yet added (optional):** an Open Graph share image.
+
+### Favicon & app icons
+
+The brand mark (navy tile + gold "trending up" arrow) lives at
+`public/favicon.svg`. Everything else is generated from it:
+
+```bash
+npm run icons
+```
+
+That produces `favicon.ico` (16/32/48), `favicon-16x16.png`,
+`favicon-32x32.png`, `apple-touch-icon.png` (180), and `icon-192.png` /
+`icon-512.png` for the PWA manifest. They're wired via `metadata.icons` in
+`layout.tsx` and the manifest route.
+
+**To change the logo:** edit `public/favicon.svg`, then re-run `npm run icons`.
+
+**Palette-matched favicon:** `src/lib/favicon.ts` rebuilds the mark as an inline
+SVG data URI in each palette's colours (tile = `--primary`, arrow = `--accent`)
+and repoints the SVG icon link whenever the palette changes. Since the palette
+is persisted in `localStorage`, it restores on reload.
+
+The tile is dark in every palette, so it reads on both light and dark tab bars —
+the icon is keyed to the **palette**, not to light/dark mode. Chromium and
+Firefox honour the swap; Safari caches favicons and keeps the static
+`favicon.ico`, which is a deliberate, graceful fallback (as is the no-JS case).
 
 ---
 
@@ -317,8 +344,8 @@ also deploys to any static-capable host.
 - **Contact email** is `mailto:`-based — wire Formspree/Resend to actually
   capture submissions.
 - **`site.url`** is a placeholder — set the real domain before launch.
-- **Optional polish:** OG share image, custom favicon, a real photo (currently
-  an initials avatar), analytics.
+- **Optional polish:** OG share image, a real photo (currently an initials
+  avatar), analytics.
 - **Security audit:** two low-severity transitive advisories remain that only
   resolve by jumping to Next 16 (a breaking major); left as-is for stability.
 
@@ -328,5 +355,3 @@ Content is presented for professional representation. The calculators are for
 illustration only and are not financial advice.
 
 _Developed by [Yogesh Chauhan](https://yogeshchauhan.dev)._
-#   s a n d e e p - p o r t f o l i o  
- 

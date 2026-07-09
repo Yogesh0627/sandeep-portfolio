@@ -37,8 +37,9 @@ export default function ToolsPage() {
       />
       <Tools hideHeader />
       {/* <p className="container-tight -mt-10 pb-20 text-center text-xs text-muted-foreground">
-        These calculators are for illustration only and do not constitute financial advice. Actual
-        figures depend on lender terms, taxes, and market conditions.
+        These calculators are for illustration only and do not constitute
+        financial advice. Actual figures depend on lender terms, taxes, and
+        market conditions.
       </p> */}
     </>
   )
