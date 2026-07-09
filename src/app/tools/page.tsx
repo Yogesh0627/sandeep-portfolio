@@ -36,10 +36,10 @@ export default function ToolsPage() {
         description="Everyday finance math — loan EMIs, interest, and investment growth — computed live. Built from the same discipline I bring to every deal."
       />
       <Tools hideHeader />
-      <p className="container-tight -mt-10 pb-20 text-center text-xs text-muted-foreground">
+      {/* <p className="container-tight -mt-10 pb-20 text-center text-xs text-muted-foreground">
         These calculators are for illustration only and do not constitute financial advice. Actual
         figures depend on lender terms, taxes, and market conditions.
-      </p>
+      </p> */}
     </>
   )
 }
