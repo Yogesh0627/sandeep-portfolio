@@ -54,9 +54,18 @@ export const metadata: Metadata = {
     locale: site.locale,
     url: site.url,
     siteName: profile.name,
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 582,
+        alt: `${profile.name} — ${profile.title}`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,

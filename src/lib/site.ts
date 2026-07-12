@@ -40,6 +40,14 @@ export function buildOpenGraph(
     type: 'website',
     locale: site.locale,
     siteName: site.shortName,
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 582,
+        alt: `${profile.name} — ${profile.title}`,
+      },
+    ],
     ...overrides,
   }
 }
